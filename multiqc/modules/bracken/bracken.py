@@ -3,9 +3,6 @@ import logging
 from multiqc.modules.kraken import MultiqcModule as KrakenModule
 from multiqc.base_module import ModuleNoSamplesFound
 
-log = logging.getLogger(__name__)
-
-
 class MultiqcModule(KrakenModule):
     """
     This module works with Bracken output files that resemble Kraken reports. They look like the following:
@@ -33,7 +30,8 @@ class MultiqcModule(KrakenModule):
             href="https://ccb.jhu.edu/software/bracken/",
             info="Computes the abundance of species in DNA sequences from a metagenomics sample.",
             doi="10.7717/peerj-cs.104",
-            sp_key="bracken",
+            sp_key="bracken", 
+            log_name="bracken",
         )
 
     def sample_total_readcounts(self):
@@ -47,5 +45,5 @@ class MultiqcModule(KrakenModule):
 
         # Check that we had some counts for some samples, exit if not
         if total_all_samples == 0:
-            log.warning("No samples had any reads")
+            self.log.warning("No samples had any reads")
             raise ModuleNoSamplesFound
